@@ -1,156 +1,158 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>org.fenixedu</groupId>
-		<artifactId>web-app-project</artifactId>
-		<version>2.0.1</version>
-	</parent>
+    <parent>
+        <groupId>org.fenixedu</groupId>
+        <artifactId>web-app-project</artifactId>
+        <version>2.0.1</version>
+    </parent>
 
-	<artifactId>fenixedu-docs-webapp</artifactId>
-	<version>1.0-SNAPSHOT</version>
-	<packaging>war</packaging>
+    <artifactId>fenixedu-docs-webapp</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
-	<name>FenixEDU Docs Webapp</name>
-
-
-	<properties>
-		<version.bennu>3.1.0</version.bennu>
-		<version.org.fenixedu.docs>2.0.0-SNAPSHOT</version.org.fenixedu.docs>
-	</properties>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.fenixedu</groupId>
-			<artifactId>docs-core</artifactId>
-			<version>${version.org.fenixedu.docs}</version>
-		</dependency>
-		
-		<!--<dependency>
-			<groupId>org.fenixedu</groupId>
-			<artifactId>docs-ui</artifactId>
-			<version>${version.org.fenixedu.docs}</version>
-		</dependency>-->
-
-		<dependency>
-			<groupId>org.fenixedu</groupId>
-			<artifactId>bennu-core</artifactId>
-			<version>${version.bennu}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.fenixedu</groupId>
-			<artifactId>bennu-scheduler</artifactId>
-			<version>${version.bennu}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.fenixedu</groupId>
-			<artifactId>bennu-io</artifactId>
-			<version>${version.bennu}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.fenixedu</groupId>
-			<artifactId>bennu-portal</artifactId>
-			<version>${version.bennu}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.fenixedu</groupId>
-			<artifactId>bennu-client</artifactId>
-			<version>${version.bennu}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.fenixedu</groupId>
-			<artifactId>default-theme</artifactId>
-			<version>${version.bennu}</version>
-		</dependency>
+    <name>FenixEDU Docs Webapp</name>
 
 
-		<!-- jaxrs container -->
+    <properties>
+        <version.bennu>3.2.0</version.bennu>
+        <version.org.fenixedu.docs>2.0.0-SNAPSHOT</version.org.fenixedu.docs>
+    </properties>
 
-		<dependency>
-			<groupId>org.glassfish.jersey.containers</groupId>
-			<artifactId>jersey-container-servlet</artifactId>
-			<version>2.4</version>
-		</dependency>
-	</dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.fenixedu</groupId>
+            <artifactId>docs-core</artifactId>
+            <version>${version.org.fenixedu.docs}</version>
+        </dependency>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.1</version>
-				<configuration>
-					<path>/</path>
-					<port>8080</port>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.fenixedu</groupId>
-				<artifactId>bennu-maven-plugin</artifactId>
-				<version>${version.bennu}</version>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.2.1.v20140609</version>
-				<configuration>
-					<scanIntervalSeconds>2</scanIntervalSeconds>
-					<stopKey>foo</stopKey>
-					<stopPort>9999</stopPort>
-					<encoding>UTF-8</encoding>
-					<webApp>
-						<sessionHandler implementation="org.eclipse.jetty.server.session.SessionHandler">
-							<sessionManager implementation="org.eclipse.jetty.server.session.HashSessionManager">
-								<storeDirectory>/tmp/jetty-sessions</storeDirectory>
-								<idleSavePeriod>1</idleSavePeriod>
-							</sessionManager>
-						</sessionHandler>
-						<contextPath>/</contextPath>
-						<baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
-							<resourcesAsCSV>
-								../fenixedu-docs/docs-ui/src/main/webapp
-							</resourcesAsCSV>
-						</baseResource>
-					</webApp>
-					<systemProperties>
-						<systemProperty>
-							<name>org.eclipse.jetty.server.Request.maxFormContentSize</name>
-							<value>10485760</value>
-						</systemProperty>
-					</systemProperties>
-				</configuration>
-				<executions>
-					<execution>
-						<id>start-jetty</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<scanIntervalSeconds>0</scanIntervalSeconds>
-							<daemon>true</daemon>
-						</configuration>
-					</execution>
-					<execution>
-						<id>stop-jetty</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>stop</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+        <dependency>
+            <groupId>org.fenixedu</groupId>
+            <artifactId>bennu-core</artifactId>
+            <version>${version.bennu}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fenixedu</groupId>
+            <artifactId>bennu-scheduler</artifactId>
+            <version>${version.bennu}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fenixedu</groupId>
+            <artifactId>bennu-io</artifactId>
+            <version>${version.bennu}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fenixedu</groupId>
+            <artifactId>bennu-portal</artifactId>
+            <version>${version.bennu}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fenixedu</groupId>
+            <artifactId>bennu-admin</artifactId>
+            <version>${version.bennu}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fenixedu</groupId>
+            <artifactId>bennu-io-ui</artifactId>
+            <version>${version.bennu}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fenixedu</groupId>
+            <artifactId>bennu-scheduler-ui</artifactId>
+            <version>${version.bennu}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fenixedu</groupId>
+            <artifactId>default-theme</artifactId>
+            <version>${version.bennu}</version>
+        </dependency>
 
+        <!-- jaxrs container -->
 
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>2.4</version>
+        </dependency>
+    </dependencies>
 
-	<repositories>
-		<repository>
-			<id>fenix-ashes-maven-repository</id>
-			<url>https://fenix-ashes.ist.utl.pt/nexus/content/groups/fenix-ashes-maven-repository</url>
-		</repository>
-	</repositories>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <path>/</path>
+                    <port>8080</port>
+                    <warSourceDirectory>src/main/webapp</warSourceDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.fenixedu</groupId>
+                <artifactId>bennu-maven-plugin</artifactId>
+                <version>${version.bennu}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.2.1.v20140609</version>
+                <configuration>
+                    <scanIntervalSeconds>2</scanIntervalSeconds>
+                    <stopKey>foo</stopKey>
+                    <stopPort>9999</stopPort>
+                    <encoding>UTF-8</encoding>
+                    <webApp>
+                        <sessionHandler implementation="org.eclipse.jetty.server.session.SessionHandler">
+                            <sessionManager implementation="org.eclipse.jetty.server.session.HashSessionManager">
+                                <storeDirectory>/tmp/jetty-sessions</storeDirectory>
+                                <idleSavePeriod>1</idleSavePeriod>
+                            </sessionManager>
+                        </sessionHandler>
+                        <contextPath>/</contextPath>
+                        <baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
+                            <resourcesAsCSV>
+                                ../fenixedu-docs/docs-ui/src/main/webapp
+                            </resourcesAsCSV>
+                        </baseResource>
+                    </webApp>
+                    <systemProperties>
+                        <systemProperty>
+                            <name>org.eclipse.jetty.server.Request.maxFormContentSize</name>
+                            <value>10485760</value>
+                        </systemProperty>
+                    </systemProperties>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>start-jetty</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <scanIntervalSeconds>0</scanIntervalSeconds>
+                            <daemon>true</daemon>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>stop-jetty</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>fenix-ashes-maven-repository</id>
+            <url>https://fenix-ashes.ist.utl.pt/nexus/content/groups/fenix-ashes-maven-repository</url>
+        </repository>
+    </repositories>
 </project>
