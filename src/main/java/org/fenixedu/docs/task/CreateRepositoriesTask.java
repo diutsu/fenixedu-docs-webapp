@@ -1,10 +1,13 @@
 package org.fenixedu.docs.task;
 
 import java.util.Locale;
+import java.util.Optional;
 
+import org.fenixedu.bennu.core.domain.Bennu;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.domain.UserProfile;
 import org.fenixedu.bennu.core.groups.AnyoneGroup;
+import org.fenixedu.bennu.core.groups.Group;
 import org.fenixedu.bennu.core.groups.LoggedGroup;
 import org.fenixedu.bennu.core.groups.UserGroup;
 import org.fenixedu.bennu.scheduler.custom.CustomTask;
@@ -20,7 +23,7 @@ public class CreateRepositoriesTask extends CustomTask {
         User sandro = getUser("sandro");
         User joao = getUser("joao");
 
-        DirNode repoMtaForte = new DirNode("Sala muita forte", UserGroup.of(sergio, sandro, joao, rita));
+        DirNode repoMtaForte = getRepo(UserGroup.of(sergio, sandro, joao, rita), "Sala muita forte");
 
         rita.addRepository(repoMtaForte);
         sergio.addRepository(repoMtaForte);
@@ -30,15 +33,23 @@ public class CreateRepositoriesTask extends CustomTask {
         User tiago = getUser("tiago");
         User joana = getUser("joana");
 
-        DirNode repoSalaBoss = new DirNode("Sala boss", UserGroup.of(tiago, joana));
+        DirNode repoSalaBoss = getRepo(UserGroup.of(tiago, joana), "Sala boss");
 
         tiago.addRepository(repoSalaBoss);
         joana.addRepository(repoSalaBoss);
 
-        DirNode repoIST = new DirNode("Instituto Superior Técnico", LoggedGroup.get());
+        DirNode repoIST = getRepo(LoggedGroup.get(), "Instituto Superior Técnico");
 
-        DirNode publico = new DirNode("Público", AnyoneGroup.get());
+        DirNode publico = getRepo(AnyoneGroup.get(), "Público");
+    }
 
+    private DirNode getRepo(final Group group, final String name) {
+        final Optional<DirNode> findAny =
+                Bennu.getInstance().getRepositorySet().stream().filter(r -> r.getDisplayName().equals(name)).findAny();
+        if (findAny.isPresent()) {
+            return findAny.get();
+        }
+        return new DirNode(name, group);
     }
 
     private User getUser(String username) {
