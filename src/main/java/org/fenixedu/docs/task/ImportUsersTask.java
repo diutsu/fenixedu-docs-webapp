@@ -2,28 +2,74 @@ package org.fenixedu.docs.task;
 
 import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.domain.UserProfile;
-import org.fenixedu.bennu.core.domain.exceptions.BennuCoreDomainException;
 import org.fenixedu.bennu.scheduler.custom.CustomTask;
 
 import pt.ist.fenixframework.Atomic.TxMode;
 import pt.ist.fenixframework.CallableWithoutException;
 import pt.ist.fenixframework.FenixFramework;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 
 public class ImportUsersTask extends CustomTask {
 
     private static final int PARTITION_SIZE = 1000;
+
+    private static class UserProfileBean {
+        public String givenNames;
+        public String familyNames;
+        public String displayName;
+        public String email;
+        public String preferredLocale;
+        public String avatarUrl;
+
+        public UserProfileBean(String givenNames, String familyNames, String displayName, String email, String preferredLocale,
+                String avatarUrl) {
+            super();
+            this.givenNames = givenNames;
+            this.familyNames = familyNames;
+            this.displayName = displayName;
+            this.email = email;
+            this.preferredLocale = preferredLocale;
+            this.avatarUrl = avatarUrl;
+        }
+
+        public UserProfile createUserProfile() {
+            return new UserProfile(givenNames, familyNames, displayName, email, getLocale());
+        }
+
+        private Locale getLocale() {
+            if (Strings.isNullOrEmpty(preferredLocale)) {
+                return null;
+            }
+            return Locale.forLanguageTag(preferredLocale);
+        }
+    }
+
+    private static class UserBean {
+        public String username;
+        public UserProfileBean profile;
+
+        public UserBean(String username, UserProfileBean profile) {
+            this.username = username;
+            this.profile = profile;
+        }
+
+        public void createUser() {
+            if (profile == null) {
+                new User(username);
+            } else {
+                new User(username, profile.createUserProfile());
+            }
+        }
+    }
 
     @Override
     public TxMode getTxMode() {
@@ -34,36 +80,29 @@ public class ImportUsersTask extends CustomTask {
 
     @Override
     public void runTask() throws Exception {
-        JsonParser parser = new JsonParser();
 
-        JsonObject container = parser.parse(new JsonReader(new FileReader(new File(USERS_JSON_TASK)))).getAsJsonObject();
-        final JsonArray users = container.get("users").getAsJsonArray();
-        taskLog("Users to import: %d\n", users.size());
+        final FileReader fileReader = new FileReader(new File(USERS_JSON_TASK));
 
-        List<JsonObject> usersList = new ArrayList<>();
-        users.forEach(u -> usersList.add(u.getAsJsonObject()));
+        List<UserBean> usersList = new Gson().fromJson(fileReader, new TypeToken<List<UserBean>>() {
+        }.getType());
+
+        taskLog("Users to import: %d\n", usersList.size());
 
         int i = 1;
-        for (List<JsonObject> usersPart : Lists.partition(usersList, PARTITION_SIZE)) {
+        for (List<UserBean> usersPart : Lists.partition(usersList, PARTITION_SIZE)) {
             taskLog("Importing %d\n", i++ * PARTITION_SIZE);
             createUser(usersPart);
         }
 
     }
 
-    private void createUser(final List<JsonObject> users) {
+    private void createUser(final List<UserBean> usersPart) {
         FenixFramework.getTransactionManager().withTransaction(new CallableWithoutException<Void>() {
 
             @Override
             public Void call() {
-                for (JsonObject user : users) {
-                    final String username = user.get("username").getAsString();
-                    final String name = user.get("name").getAsString();
-                    try {
-                        new User(username, new UserProfile(name, name, name, null, Locale.getDefault()));
-                    } catch (BennuCoreDomainException e) {
-                        taskLog(e.getMessage());
-                    }
+                for (UserBean user : usersPart) {
+                    user.createUser();
                 }
                 return null;
             }
