@@ -27,11 +27,11 @@
             <artifactId>docs-core</artifactId>
             <version>${version.org.fenixedu.docs}</version>
         </dependency>
-         <!--<dependency>
+         <dependency>
             <groupId>org.fenixedu</groupId>
             <artifactId>docs-ui</artifactId>
             <version>${version.org.fenixedu.docs}</version>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>org.fenixedu</groupId>
             <artifactId>bennu-core</artifactId>
@@ -71,6 +71,11 @@
             <groupId>org.fenixedu</groupId>
             <artifactId>default-theme</artifactId>
             <version>${version.bennu}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fenixedu</groupId>
+            <artifactId>docs-theme</artifactId>
+            <version>${version.org.fenixedu.docs}</version>
         </dependency>
 
         <!-- jaxrs container -->
