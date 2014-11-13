@@ -17,7 +17,7 @@
 
 
     <properties>
-        <version.bennu>3.3.2</version.bennu>
+        <version.bennu>3.5.0-SNAPSHOT</version.bennu>
         <version.org.fenixedu.docs>2.0.0-SNAPSHOT</version.org.fenixedu.docs>
     </properties>
 
@@ -27,7 +27,7 @@
             <artifactId>docs-core</artifactId>
             <version>${version.org.fenixedu.docs}</version>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>org.fenixedu</groupId>
             <artifactId>docs-ui</artifactId>
             <version>${version.org.fenixedu.docs}</version>
@@ -78,13 +78,21 @@
             <version>${version.org.fenixedu.docs}</version>
         </dependency>
 
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- jaxrs container -->
 
         <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-servlet</artifactId>
-            <version>2.4</version>
+	       <groupId>org.glassfish.jersey.containers</groupId>
+	       <artifactId>jersey-container-servlet</artifactId>
+	       <version>2.13</version>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -96,7 +104,8 @@
                 <configuration>
                     <path>/</path>
                     <port>8080</port>
-                    <!--<warSourceDirectory>/Users/sfbs/workspace/fenixedu-docs/docs-ui/src/main/webapp/docs/app</warSourceDirectory>-->
+                    <!--<warSourceDirectory>/Users/sfbs/workspace/fenixedu-docs/docs-ui/src/main/webapp/docs/app</warSourceDirectory> -->
+                    <warSourceDirectory>/Users/sfbs/workspace/bennu/client/bennu-scheduler-ui/src/main/webapp</warSourceDirectory>
                 </configuration>
             </plugin>
             <plugin>
@@ -123,7 +132,7 @@
                         <contextPath>/</contextPath>
                         <baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
                             <resourcesAsCSV>
-                                ../fenixedu-docs/docs-ui/src/main/webapp
+                                ../bennu/bennu-portal/src/main/webapp
                             </resourcesAsCSV>
                         </baseResource>
                     </webApp>
@@ -155,9 +164,47 @@
                     </execution>
                 </executions>
             </plugin>
+<!--             <plugin> -->
+<!--                 <groupId>org.zeroturnaround</groupId> -->
+<!--                 <artifactId>jrebel-maven-plugin</artifactId> -->
+<!--                 <version>1.1.5</version> -->
+<!--                 <executions> -->
+<!--                     <execution> -->
+<!--                         <id>generate-rebel-xml</id> -->
+<!--                         <phase>process-resources</phase> -->
+<!--                         <goals> -->
+<!--                             <goal>generate</goal> -->
+<!--                         </goals> -->
+<!--                     </execution> -->
+<!--                 </executions> -->
+<!--             </plugin> -->
         </plugins>
     </build>
-
+    <profiles>
+        <profile>
+            <id>SQLUpdateGenerator</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.2.1</version>
+                        <executions>
+                            <execution>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                                <configuration>
+                                    <mainClass>org.fenixedu.ff.SQLUpdateGeneratorMain</mainClass>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
     <repositories>
         <repository>
             <id>fenix-ashes-maven-repository</id>

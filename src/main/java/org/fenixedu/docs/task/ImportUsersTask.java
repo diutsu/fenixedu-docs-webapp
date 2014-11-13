@@ -22,7 +22,25 @@ public class ImportUsersTask extends CustomTask {
 
     private static final int PARTITION_SIZE = 1000;
 
-    private static class UserProfileBean {
+    class UserBean {
+        public String username;
+        public UserProfileBean profile;
+
+        public UserBean(String username, UserProfileBean profile) {
+            this.username = username;
+            this.profile = profile;
+        }
+
+        public User createUser() {
+            if (profile == null) {
+                return new User(username);
+            } else {
+                return new User(username, profile.createUserProfile());
+            }
+        }
+    }
+
+    class UserProfileBean {
         public String givenNames;
         public String familyNames;
         public String displayName;
@@ -42,7 +60,9 @@ public class ImportUsersTask extends CustomTask {
         }
 
         public UserProfile createUserProfile() {
-            return new UserProfile(givenNames, familyNames, displayName, email, getLocale());
+            final UserProfile userProfile = new UserProfile(givenNames, familyNames, displayName, email, getLocale());
+            userProfile.setAvatarUrl(this.avatarUrl);
+            return userProfile;
         }
 
         private Locale getLocale() {
@@ -51,23 +71,12 @@ public class ImportUsersTask extends CustomTask {
             }
             return Locale.forLanguageTag(preferredLocale);
         }
-    }
 
-    private static class UserBean {
-        public String username;
-        public UserProfileBean profile;
-
-        public UserBean(String username, UserProfileBean profile) {
-            this.username = username;
-            this.profile = profile;
-        }
-
-        public void createUser() {
-            if (profile == null) {
-                new User(username);
-            } else {
-                new User(username, profile.createUserProfile());
-            }
+        public void updateProfile(UserProfile profile) {
+            profile.changeName(this.givenNames, this.familyNames, this.displayName);
+            profile.setEmail(this.email);
+            profile.setPreferredLocale(getLocale());
+            profile.setAvatarUrl(this.avatarUrl);
         }
     }
 

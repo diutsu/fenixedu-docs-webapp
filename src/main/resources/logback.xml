@@ -7,10 +7,14 @@
         </encoder>
     </appender>
     
-    <logger name="org.fenixedu.bennu.scheduler" level="DEBUG">
+    <logger name="org.fenixedu.bennu.scheduler" level="ERROR">
 	</logger>
 	
-    <root level="DEBUG">
+    
+    <logger name="pt.ist" level="ERROR"></logger>
+    <logger name="org.fenixedu.docs.domain" level="DEBUG"></logger>
+    
+    <root level="ERROR">
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>

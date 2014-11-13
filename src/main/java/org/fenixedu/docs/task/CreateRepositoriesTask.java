@@ -11,6 +11,7 @@ import org.fenixedu.bennu.core.groups.Group;
 import org.fenixedu.bennu.core.groups.LoggedGroup;
 import org.fenixedu.bennu.core.groups.UserGroup;
 import org.fenixedu.bennu.scheduler.custom.CustomTask;
+import org.fenixedu.commons.i18n.LocalizedString;
 import org.fenixedu.docs.domain.DirNode;
 
 public class CreateRepositoriesTask extends CustomTask {
@@ -23,7 +24,11 @@ public class CreateRepositoriesTask extends CustomTask {
         User sandro = getUser("sandro");
         User joao = getUser("joao");
 
-        DirNode repoMtaForte = getRepo(UserGroup.of(sergio, sandro, joao, rita), "Sala muita forte");
+        LocalizedString type =
+                new LocalizedString.Builder().with(Locale.forLanguageTag("pt-PT"), "Unidade")
+                        .with(Locale.forLanguageTag("en-GB"), "Unit").build();
+
+        DirNode repoMtaForte = getRepo(UserGroup.of(sergio, sandro, joao, rita), type, "Sala muita forte");
 
         rita.addRepository(repoMtaForte);
         sergio.addRepository(repoMtaForte);
@@ -33,23 +38,23 @@ public class CreateRepositoriesTask extends CustomTask {
         User tiago = getUser("tiago");
         User joana = getUser("joana");
 
-        DirNode repoSalaBoss = getRepo(UserGroup.of(tiago, joana), "Sala boss");
+        DirNode repoSalaBoss = getRepo(UserGroup.of(tiago, joana), type, "Sala boss");
 
         tiago.addRepository(repoSalaBoss);
         joana.addRepository(repoSalaBoss);
 
-        DirNode repoIST = getRepo(LoggedGroup.get(), "Instituto Superior Técnico");
+        DirNode repoIST = getRepo(LoggedGroup.get(), type, "Instituto Superior Técnico");
 
-        DirNode publico = getRepo(AnyoneGroup.get(), "Público");
+        DirNode publico = getRepo(AnyoneGroup.get(), type, "Público");
     }
 
-    private DirNode getRepo(final Group group, final String name) {
+    private DirNode getRepo(final Group group, final LocalizedString type, final String name) {
         final Optional<DirNode> findAny =
                 Bennu.getInstance().getRepositorySet().stream().filter(r -> r.getDisplayName().equals(name)).findAny();
         if (findAny.isPresent()) {
             return findAny.get();
         }
-        return new DirNode(name, group);
+        return new DirNode(name, type, group);
     }
 
     private User getUser(String username) {
