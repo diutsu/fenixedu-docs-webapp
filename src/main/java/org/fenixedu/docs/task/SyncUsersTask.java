@@ -18,18 +18,13 @@ import com.google.common.collect.Lists;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
-public class ImportUsersTask extends CustomTask {
+public class SyncUsersTask extends CustomTask {
 
     private static final int PARTITION_SIZE = 1000;
 
-    class UserBean {
+    private static class UserBean {
         public String username;
         public UserProfileBean profile;
-
-        public UserBean(String username, UserProfileBean profile) {
-            this.username = username;
-            this.profile = profile;
-        }
 
         public User createUser() {
             if (profile == null) {
@@ -40,24 +35,13 @@ public class ImportUsersTask extends CustomTask {
         }
     }
 
-    class UserProfileBean {
+    private static class UserProfileBean {
         public String givenNames;
         public String familyNames;
         public String displayName;
         public String email;
         public String preferredLocale;
         public String avatarUrl;
-
-        public UserProfileBean(String givenNames, String familyNames, String displayName, String email, String preferredLocale,
-                String avatarUrl) {
-            super();
-            this.givenNames = givenNames;
-            this.familyNames = familyNames;
-            this.displayName = displayName;
-            this.email = email;
-            this.preferredLocale = preferredLocale;
-            this.avatarUrl = avatarUrl;
-        }
 
         public UserProfile createUserProfile() {
             final UserProfile userProfile = new UserProfile(givenNames, familyNames, displayName, email, getLocale());
@@ -95,23 +79,38 @@ public class ImportUsersTask extends CustomTask {
         List<UserBean> usersList = new Gson().fromJson(fileReader, new TypeToken<List<UserBean>>() {
         }.getType());
 
-        taskLog("Users to import: %d\n", usersList.size());
+        taskLog("Users to sync: %d\n", usersList.size());
 
         int i = 1;
         for (List<UserBean> usersPart : Lists.partition(usersList, PARTITION_SIZE)) {
             taskLog("Importing %d\n", i++ * PARTITION_SIZE);
-            createUser(usersPart);
+            updateUser(usersPart);
         }
 
     }
 
-    private void createUser(final List<UserBean> usersPart) {
+    private void updateUser(final List<UserBean> usersPart) {
         FenixFramework.getTransactionManager().withTransaction(new CallableWithoutException<Void>() {
 
             @Override
             public Void call() {
-                for (UserBean user : usersPart) {
-                    user.createUser();
+                for (UserBean userBean : usersPart) {
+                    User user = User.findByUsername(userBean.username);
+                    if (user != null) {
+                        UserProfile currentProfile = user.getProfile();
+                        if (userBean.profile != null) {
+                            if (currentProfile == null) {
+                                user.setProfile(userBean.profile.createUserProfile());
+//                                taskLog("create profile for user " + user.getUsername());
+                            } else {
+                                userBean.profile.updateProfile(currentProfile);
+//                                taskLog("update profile for user " + user.getUsername());
+                            }
+                        }
+                    } else {
+                        user = userBean.createUser();
+//                        taskLog("creating user " + user.getUsername());
+                    }
                 }
                 return null;
             }
