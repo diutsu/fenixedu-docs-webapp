@@ -1,0 +1,7 @@
+@font-face {
+        font-family: 'KlavikaMediumBold';
+        src: url('type/klavikaboldbold-webfont.eot');
+        src: local('?'), url('../fonts/klavikaboldbold-webfont.woff') format('woff'), url('../fonts/klavikaboldbold-webfont.ttf') format('truetype'), url('../fonts/klavikaboldbold-webfont.svg#webfontTWPh10Er') format('svg');
+        font-weight: bold;
+        font-style: normal;
+    }

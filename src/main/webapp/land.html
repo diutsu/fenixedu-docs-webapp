@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" 
+    content="text/html; charset=utf-8">
+    <title>FenixEdu Drive</title>
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/fonts.css">
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="initial-scale=1.0">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/slippry.min.js"></script>
+    
+</head>
+
+<body>
+
+    <div class="section intro full">
+        <a href="#" id="logo-wrap">
+            <i class="logo"></i>
+        </a>
+        <div class="content">
+                    <h4>The new paperless academic archive!</h4>
+                    <h1>FenixEdu Drive: Cloud-based Document Management</h1>
+		    <p>
+                          We are currently rolling out the application... please be patient
+		    </p>
+
+        </div>
+    </div>
+
+    <div class="section" id="topics">
+        <div class="wrap">
+            <img class="computer" 
+            src="images/macbook-big.svg" alt="">
+            <div class="section slideshow">
+                <div id="slideshow-overlay"></div>
+                <div id="slideshow-wrap">
+                    <ul id="galeria">
+                        <li>
+                            <a style="background-image: url('images/slideshow/1.png')">
+                            	<img src="images/slideshow/1.png" 
+                            	>
+                            </a>
+                        </li>
+                        <li>
+                            <a style="background-image: url('images/slideshow/2.png')">
+                            	<img src="images/slideshow/2.png" 
+                            	>
+                            </a>
+                        </li>
+                        <li>
+                            <a style="background-image: url('images/slideshow/3.png')">
+                            	<img src="images/slideshow/3.png" 
+                            	>
+                            </a>
+                        </li>
+                        <li>
+                            <a style="background-image: url('images/slideshow/4.png')">
+                            	<img src="images/slideshow/4.png" 
+                            	>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <script>
+                $(function() {
+                    var galeria = $("#galeria").slippry({
+                        // transition: 'fade',
+                        // useCSS: true,
+                        // speed: 1000,
+                        // pause: 3000,
+                        // auto: true,
+                        // preload: 'visible',
+                        // autoHover: false
+                    });
+
+                    $('.stop').click(function() {
+                        galeria.stopAuto();
+                    });
+
+                    $('.start').click(function() {
+                        galeria.startAuto();
+                    });
+
+                    $('.prev').click(function() {
+                        galeria.goToPrevSlide();
+                        return false;
+                    });
+                    $('.next').click(function() {
+                        galeria.goToNextSlide();
+                        return false;
+                    });
+                    $('.reset').click(function() {
+                        galeria.destroySlider();
+                        return false;
+                    });
+                    $('.reload').click(function() {
+                        galeria.reloadSlider();
+                        return false;
+                    });
+                    $('.init').click(function() {
+                        galeria = $("#demo1").slippry();
+                        return false;
+                    });
+                });
+                </script>
+            </div>
+        </div>
+        <div class="content">
+            <div class="side left">
+                <h1>What is wonderful about it</h1>
+            </div>
+            <div class="side right">
+                <ul>
+                    <li>It is cloud-based</li>
+                    <li>You can share docs with users and groups</li>
+                    <li>It keeps track of your document history</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
