@@ -21,18 +21,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <c:if test="${empty LOGGED_USER_ATTRIBUTE}">
-	<c:if test="${not empty CAS_AUTHENTICATION_EXCEPTION}" >
-	        <c:set var="url" scope="request" value="${pageContext.request.contextPath}/land.html"/>
-	</c:if>
-        <c:if test="${empty CAS_AUTHENTICATION_EXCEPTION}" >
-	        <c:set var="url" scope="request" value="${pageContext.request.contextPath}/login"/>
-       	</c:if>
+    <c:if test="${not empty param.ticket}" >
+        <c:set var="url" scope="request" value="${pageContext.request.contextPath}/land.html"/>
+    </c:if>
+    <c:if test="${empty param.ticket}" >
+        <c:set var="url" scope="request" value="${pageContext.request.contextPath}/login"/>
+   	</c:if>
 </c:if>
 
 <c:if test="${not empty LOGGED_USER_ATTRIBUTE}">
-	<c:set var="url" scope="request" value="${pageContext.request.contextPath}/"/>
+    <c:set var="url" scope="request" value="${pageContext.request.contextPath}/"/>
 </c:if>
 
 <%
-	response.sendRedirect((String) pageContext.findAttribute("url"));
+    response.sendRedirect((String) pageContext.findAttribute("url"));
 %>
