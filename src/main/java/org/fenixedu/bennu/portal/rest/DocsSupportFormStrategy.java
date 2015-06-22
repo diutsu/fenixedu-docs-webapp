@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Joiner;
 
-public class DocsSupportFormStrategy implements SupportFormResource.SupportFormStrategy {
+public class DocsSupportFormStrategy /*implements SupportFormResource.SupportFormStrategy */{
 
     final static String fileSeparator = System.getProperty("file.separator");
     final static String home = System.getProperty("user.home");
@@ -30,7 +30,7 @@ public class DocsSupportFormStrategy implements SupportFormResource.SupportFormS
         }
     }
 
-    @Override
+//    @Override
     public void processSupportForm(StringBuilder formText) {
 
         try (FileWriter writer = getWriter()) {

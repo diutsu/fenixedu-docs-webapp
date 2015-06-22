@@ -17,20 +17,25 @@
 
 
     <properties>
-        <version.bennu>3.4.1</version.bennu>
-        <version.org.fenixedu.docs>2.0.0-SNAPSHOT</version.org.fenixedu.docs>
+        <version.bennu>4.0.0.M1</version.bennu>
+        <version.org.fenixedu.drive>2.0.0.RC2</version.org.fenixedu.drive>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.fenixedu</groupId>
+            <artifactId>fenixedu-commons</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fenixedu</groupId>
             <artifactId>drive-core</artifactId>
-            <version>${version.org.fenixedu.docs}</version>
+            <version>${version.org.fenixedu.drive}</version>
         </dependency>
         <dependency>
             <groupId>org.fenixedu</groupId>
             <artifactId>drive-ui</artifactId>
-            <version>${version.org.fenixedu.docs}</version>
+            <version>${version.org.fenixedu.drive}</version>
         </dependency>
         <dependency>
             <groupId>org.fenixedu</groupId>
@@ -59,23 +64,13 @@
         </dependency>
         <dependency>
             <groupId>org.fenixedu</groupId>
-            <artifactId>bennu-io-ui</artifactId>
-            <version>${version.bennu}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.fenixedu</groupId>
-            <artifactId>bennu-scheduler-ui</artifactId>
-            <version>${version.bennu}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.fenixedu</groupId>
             <artifactId>default-theme</artifactId>
             <version>${version.bennu}</version>
         </dependency>
         <dependency>
             <groupId>org.fenixedu</groupId>
             <artifactId>drive-theme</artifactId>
-            <version>${version.org.fenixedu.docs}</version>
+            <version>${version.org.fenixedu.drive}</version>
         </dependency>
 
         <dependency>
@@ -104,6 +99,7 @@
                 <configuration>
                     <path>/</path>
                     <port>8080</port>
+					<warSourceDirectory>src/main/webapp</warSourceDirectory>
                 </configuration>
             </plugin>
             <plugin>

@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.groups.Group;
-import org.fenixedu.bennu.core.groups.UserGroup;
 import org.fenixedu.bennu.scheduler.custom.CustomTask;
 import org.fenixedu.drive.domain.AbstractFileNode;
 import org.fenixedu.drive.domain.Document;
@@ -88,7 +87,7 @@ public class ImportGroupsForNodesAndDocumentsTask extends CustomTask {
 
         for (Entry<GroupBean, Integer> entry : groupBeans.entrySet()) {
             final Set<String> members = entry.getKey().getMembers();
-            final Set<Group> users = members.stream().map(User::findByUsername).map(UserGroup::of).collect(Collectors.toSet());
+            final Set<Group> users = members.stream().map(User::findByUsername).map(Group::users).collect(Collectors.toSet());
             if (users.contains(null) || members.size() != users.size()) {
                 throw new Error("Can't do it");
             }

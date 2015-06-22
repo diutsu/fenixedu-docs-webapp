@@ -28,7 +28,7 @@ public class SyncUsersTask extends CustomTask {
 
         public User createUser() {
             if (profile == null) {
-                return new User(username);
+                return null;
             } else {
                 return new User(username, profile.createUserProfile());
             }

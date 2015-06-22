@@ -1,8 +1,7 @@
 package org.fenixedu.docs.task;
 
 import org.fenixedu.bennu.core.domain.User;
-import org.fenixedu.bennu.core.groups.DynamicGroup;
-import org.fenixedu.bennu.core.groups.UserGroup;
+import org.fenixedu.bennu.core.groups.Group;
 
 import pt.ist.fenixframework.CallableWithoutException;
 import pt.ist.fenixframework.FenixFramework;
@@ -23,7 +22,7 @@ public class SetUserAsAdmin {
             public Void call() {
                 User user = User.findByUsername(username);
                 if (user != null) {
-                    DynamicGroup.get("managers").changeGroup(UserGroup.of(user));
+                    Group.managers().mutator().changeGroup(Group.users(user));
                     System.out.printf("User %s (%s) added as manager.\n", user.getName(), user.getUsername());
                 } else {
                     System.out.printf("Can't find user with username %s .\n", username);

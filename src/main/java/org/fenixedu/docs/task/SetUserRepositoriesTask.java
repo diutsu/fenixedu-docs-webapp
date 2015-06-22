@@ -1,14 +1,17 @@
 package org.fenixedu.docs.task;
 
-import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.scheduler.custom.CustomTask;
 import org.fenixedu.commons.i18n.LocalizedString;
+import org.fenixedu.drive.domain.AbstractFileNode;
 import org.fenixedu.drive.domain.DirNode;
+import org.fenixedu.drive.domain.FileNode;
 
 import pt.ist.fenixframework.FenixFramework;
 
@@ -40,6 +43,7 @@ public class SetUserRepositoriesTask extends CustomTask {
         for (String oid : reposIds) {
             DirNode node = FenixFramework.getDomainObject(oid);
             if (FenixFramework.isDomainObjectValid(node)) {
+                fixSlug(node);
                 taskLog(node.getDisplayName());
                 node.setRepositoryType(repoType);
                 node.setRepositoryRoot(Bennu.getInstance());
@@ -51,11 +55,23 @@ public class SetUserRepositoriesTask extends CustomTask {
 
     }
 
+    private void fixSlug(AbstractFileNode node) {
+        if (node.isShared()) {
+            return;
+        }
+        if (node instanceof DirNode) {
+            node.setName(node.getName());
+            for (AbstractFileNode child : ((DirNode) node).getChildSet()) {
+                fixSlug(child);
+            }
+        } else if (node instanceof FileNode) {
+            node.setName(node.getDisplayName());
+        }
+    }
+
     private Set<User> getUsers(DirNode node) {
-        Set<User> users = new HashSet<>();
-        users.addAll(node.getReadGroup().getMembers());
-        users.addAll(node.getWriteGroup().getMembers());
-        return users;
+        return Stream.concat(node.getReadGroup().getMembers(), node.getWriteGroup().getMembers()).distinct()
+                .collect(Collectors.toSet());
     }
 
 }

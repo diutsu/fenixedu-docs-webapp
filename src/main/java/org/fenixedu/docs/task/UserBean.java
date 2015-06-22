@@ -13,7 +13,8 @@ class UserBean {
 
     public User createUser() {
         if (profile == null) {
-            return new User(username);
+            return null;
+//            return new User(username);
         } else {
             return new User(username, profile.createUserProfile());
         }

@@ -18,7 +18,7 @@ import com.google.common.collect.Lists;
 public class ChangeUserPasswordAndQuotaTask extends CustomTask {
 
     private static final int PARTITION_SIZE = 1000;
-    private static final long DEFAULT_QUOTA = 200000000L;
+    private static final long DEFAULT_QUOTA = 20000000000L;
 
     String defaultPassword;
     String rootPassword;
