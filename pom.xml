@@ -24,12 +24,12 @@
     <dependencies>
         <dependency>
             <groupId>org.fenixedu</groupId>
-            <artifactId>docs-core</artifactId>
+            <artifactId>drive-core</artifactId>
             <version>${version.org.fenixedu.docs}</version>
         </dependency>
         <dependency>
             <groupId>org.fenixedu</groupId>
-            <artifactId>docs-ui</artifactId>
+            <artifactId>drive-ui</artifactId>
             <version>${version.org.fenixedu.docs}</version>
         </dependency>
         <dependency>
@@ -74,7 +74,7 @@
         </dependency>
         <dependency>
             <groupId>org.fenixedu</groupId>
-            <artifactId>docs-theme</artifactId>
+            <artifactId>drive-theme</artifactId>
             <version>${version.org.fenixedu.docs}</version>
         </dependency>
 

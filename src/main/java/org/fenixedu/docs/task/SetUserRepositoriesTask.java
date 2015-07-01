@@ -8,7 +8,7 @@ import org.fenixedu.bennu.core.domain.Bennu;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.scheduler.custom.CustomTask;
 import org.fenixedu.commons.i18n.LocalizedString;
-import org.fenixedu.docs.domain.DirNode;
+import org.fenixedu.drive.domain.DirNode;
 
 import pt.ist.fenixframework.FenixFramework;
 

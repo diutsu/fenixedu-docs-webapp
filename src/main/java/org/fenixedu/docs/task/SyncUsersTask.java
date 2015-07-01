@@ -69,7 +69,7 @@ public class SyncUsersTask extends CustomTask {
         return TxMode.READ;
     }
 
-    private static final String USERS_JSON_TASK = "/Users/sfbs/Documents/docs/export/users.json";
+    private static final String USERS_JSON_TASK = "/Users/sfbs/Documents/drive/export/users.json";
 
     @Override
     public void runTask() throws Exception {

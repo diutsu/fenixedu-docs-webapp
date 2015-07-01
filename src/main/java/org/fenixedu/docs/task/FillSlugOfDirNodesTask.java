@@ -8,9 +8,9 @@ import jersey.repackaged.com.google.common.collect.Lists;
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.scheduler.custom.CustomTask;
-import org.fenixedu.docs.domain.AbstractFileNode;
-import org.fenixedu.docs.domain.DirNode;
-import org.fenixedu.docs.domain.FileNode;
+import org.fenixedu.drive.domain.AbstractFileNode;
+import org.fenixedu.drive.domain.DirNode;
+import org.fenixedu.drive.domain.FileNode;
 
 import pt.ist.fenixframework.Atomic.TxMode;
 import pt.ist.fenixframework.FenixFramework;

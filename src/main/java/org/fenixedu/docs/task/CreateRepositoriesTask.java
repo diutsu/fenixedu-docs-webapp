@@ -12,7 +12,7 @@ import org.fenixedu.bennu.core.groups.LoggedGroup;
 import org.fenixedu.bennu.core.groups.UserGroup;
 import org.fenixedu.bennu.scheduler.custom.CustomTask;
 import org.fenixedu.commons.i18n.LocalizedString;
-import org.fenixedu.docs.domain.DirNode;
+import org.fenixedu.drive.domain.DirNode;
 
 public class CreateRepositoriesTask extends CustomTask {
 

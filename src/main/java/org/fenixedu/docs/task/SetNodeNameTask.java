@@ -2,8 +2,8 @@ package org.fenixedu.docs.task;
 
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.scheduler.custom.CustomTask;
-import org.fenixedu.docs.domain.AbstractFileNode;
-import org.fenixedu.docs.domain.DirNode;
+import org.fenixedu.drive.domain.AbstractFileNode;
+import org.fenixedu.drive.domain.DirNode;
 
 import com.google.common.base.Strings;
 

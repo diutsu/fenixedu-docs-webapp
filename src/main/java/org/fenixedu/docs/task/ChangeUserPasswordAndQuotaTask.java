@@ -6,8 +6,8 @@ import java.util.List;
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.scheduler.custom.CustomTask;
-import org.fenixedu.docs.domain.DirNode;
-import org.fenixedu.docs.domain.FileManagementSystem;
+import org.fenixedu.drive.domain.DirNode;
+import org.fenixedu.drive.domain.FileManagementSystem;
 
 import pt.ist.fenixframework.Atomic.TxMode;
 import pt.ist.fenixframework.CallableWithoutException;

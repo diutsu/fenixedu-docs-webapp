@@ -13,8 +13,8 @@ import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.groups.Group;
 import org.fenixedu.bennu.core.groups.UserGroup;
 import org.fenixedu.bennu.scheduler.custom.CustomTask;
-import org.fenixedu.docs.domain.AbstractFileNode;
-import org.fenixedu.docs.domain.Document;
+import org.fenixedu.drive.domain.AbstractFileNode;
+import org.fenixedu.drive.domain.Document;
 
 import pt.ist.fenixframework.DomainObject;
 import pt.ist.fenixframework.FenixFramework;
@@ -28,7 +28,7 @@ import com.google.gson.stream.JsonReader;
 
 public class ImportGroupsForNodesAndDocumentsTask extends CustomTask {
 
-    final static String IMPORT_DIR = "/Users/sfbs/Documents/docs/export/";
+    final static String IMPORT_DIR = "/Users/sfbs/Documents/drive/export/";
 
     @SuppressWarnings("unused")
     private static class GroupBean {

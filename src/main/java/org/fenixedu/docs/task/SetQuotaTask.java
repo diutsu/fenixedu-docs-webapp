@@ -9,7 +9,7 @@ import jersey.repackaged.com.google.common.collect.Lists;
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.scheduler.custom.CustomTask;
-import org.fenixedu.docs.domain.DirNode;
+import org.fenixedu.drive.domain.DirNode;
 
 import pt.ist.fenixframework.Atomic.TxMode;
 import pt.ist.fenixframework.CallableWithoutException;
@@ -18,7 +18,7 @@ import pt.ist.fenixframework.FenixFramework;
 public class SetQuotaTask extends CustomTask {
 
     private static final int PARTITION_SIZE = 1000;
-    private static final long DEFAULT_QUOTA = 20_000_000_000L;
+    private static final long DEFAULT_QUOTA = 21_474_836_480L;
 
     @Override
     public TxMode getTxMode() {
