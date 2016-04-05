@@ -10,15 +10,15 @@
     </parent>
 
     <artifactId>fenixedu-drive-webapp</artifactId>
-    <version>2.0.0.RC5</version>
+    <version>2.0.0.RC6</version>
     <packaging>war</packaging>
 
     <name>FenixEDU Drive Webapp</name>
 
 
     <properties>
-        <version.bennu>4.0.0.M1</version.bennu>
-        <version.org.fenixedu.drive>2.0.0.RC5</version.org.fenixedu.drive>
+        <version.bennu>4.0.0.RC2</version.bennu>
+        <version.org.fenixedu.drive>2.0.0.RC6</version.org.fenixedu.drive>
     </properties>
 
     <dependencies>
@@ -72,7 +72,11 @@
             <artifactId>drive-theme</artifactId>
             <version>${version.org.fenixedu.drive}</version>
         </dependency>
-
+		<dependency>
+			<groupId>org.fenixedu</groupId>
+			<artifactId>bennu-cas-client</artifactId>
+			<version>${version.bennu}</version>
+		</dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
