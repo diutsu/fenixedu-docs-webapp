@@ -92,7 +92,8 @@ public class ScanDirectoryForFilesTask extends CronTask {
             scannedDocumentDir = userRepository.createDir(SCANNED_DOCUMENTS_DIRNAME, user);
         }
         taskLog("create file %s for %s\n", file.getName(), user.getDisplayName());
-        scannedDocumentDir.createFile(file, file.getName(), file.getName(), file.length(), user);
+       // scannedDocumentDir.createFile(file, file.getName(), file.getName(), file.length(), user);
+        // upload to S3 and save to drive
     }
 
 }

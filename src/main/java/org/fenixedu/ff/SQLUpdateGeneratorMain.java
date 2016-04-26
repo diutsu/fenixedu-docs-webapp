@@ -29,7 +29,7 @@ public class SQLUpdateGeneratorMain {
 
         final List<URL> dmlFiles = new ArrayList<URL>();
         try {
-            for (DmlFile dmlFile : Project.fromName("fenixedu-docs-webapp").getFullDmlSortedList()) {
+            for (DmlFile dmlFile : Project.fromName("fenixedu-drive-webapp").getFullDmlSortedList()) {
                 dmlFiles.add(dmlFile.getUrl());
             }
             DomainModel model = DomainModelParser.getDomainModel(dmlFiles);

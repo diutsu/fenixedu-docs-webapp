@@ -38,7 +38,7 @@ public class CleanUpOrphanObjects {
     private static Connection connection;
 
     public static void setUpDomainModel() throws Exception {
-        Project project = Project.fromName("fenixedu-docs-webapp");
+        Project project = Project.fromName("fenixedu-drive-webapp");
         List<URL> dmls = new ArrayList<URL>();
         for (DmlFile dmlFile : project.getFullDmlSortedList()) {
             System.out.println(dmlFile.getUrl());

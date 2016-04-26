@@ -13,3 +13,6 @@ build.properties.slave
 configuration.properties*
 *.sql
 /bin/
+
+.idea/
+*.iml
