@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>fenixedu-drive-webapp</artifactId>
-    <version>2.0.0.RC6</version>
+    <version>2.0.0.RC7</version>
     <packaging>war</packaging>
 
     <name>FenixEDU Drive Webapp</name>
@@ -18,7 +18,7 @@
 
     <properties>
         <version.bennu>4.0.0.RC2</version.bennu>
-        <version.org.fenixedu.drive>2.0.0.RC6</version.org.fenixedu.drive>
+        <version.org.fenixedu.drive>2.0.0.RC7</version.org.fenixedu.drive>
     </properties>
 
     <dependencies>
